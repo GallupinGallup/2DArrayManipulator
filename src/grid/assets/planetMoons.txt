@@ -1,1 +1,5 @@
-moon-Deimos,Phobos-Adrastea,Aitne,Amalthea,Callisto,Lo,Kale,Kore,Metis,Pasithee,Sinope,Taygete-Despina,Galatea,Halimede,Larissa,Laomedeia,Naiad,Nereid,Neso,Proteus-Ariel,Belinda,Bianca,Caliban,Juliet,Mab,Margaret,Oberon,Umbriel
+moon
+Deimos,Phobos
+Adrastea,Callisto,Lo,Kale,Metis,Pasithee,Sinope,Taygete
+Despina,Galatea,Larissa,Laomedeia,Naiad,Nereid,Neso,Proteus
+Ariel,Belinda,Bianca,Caliban,Juliet,Mab,Margaret,Oberon,Umbriel
