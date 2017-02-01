@@ -10,6 +10,7 @@ import grid.view.GridFrame;
 
 public class GridController {
 	
+	// Moon website: http://www.windows2universe.org/our_solar_system/moons_table.html
 	// Earth, Mars, Jupiter, Neptune, Uranus
 	private PlanetMoon[][] planetMoons;
 	private GridFrame gridFrame;
