@@ -8,6 +8,11 @@ public class PlanetMoon {
 		this.moonName = moonName;
 	}
 	
+	@Override
+	public String toString() {
+		return moonName;
+	}
+	
 	public String getMoonName() {
 		return moonName;
 	}
