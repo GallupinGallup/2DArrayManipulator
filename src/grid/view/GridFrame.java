@@ -24,7 +24,7 @@ public class GridFrame extends JFrame {
 		
 		this.setTitle("2D Array Manipulator");
 		
-		this.setSize(600, 600);
+		this.setSize(600, 570);
 		this.setLocationRelativeTo(null);
 		
 		this.setVisible(true);

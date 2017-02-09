@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,9 +47,11 @@ public class GridPanel extends JPanel {
 		this.editCellField = new JTextField();
 		this.insertButton = new JButton("Insert");
 		this.deleteButton = new JButton("Delete");
-		this.clearButton = new JButton("Clear");
+		this.clearButton = new JButton("Clear Table");
 		this.quitButton = new JButton("Quit");
 		this.dontPushButton = new JButton("Do Not Push");
+		
+		this.populateTableModel();
 		
 		this.setupComponents();
 		this.setupPanel();
@@ -56,14 +59,22 @@ public class GridPanel extends JPanel {
 		this.setupListeners();
 	}
 	
+	private void populateTableModel(){
+		this.tableModel.setDataVector(gridController.getGrid(), new String[]{"Earth", "Mars", "Jupiter", "Neptune", "Uranus"});
+	}
+	
 	private void setupComponents(){
-		Font font = new Font("Verdana", Font.PLAIN, 17);
+		this.dataTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+		this.dataTable.setRowSelectionAllowed(false);
+		this.dataTable.setColumnSelectionAllowed(false);
+		this.dataTable.setCellSelectionEnabled(true);
+		
+		
+		Font font = new Font("Verdana", Font.PLAIN, 17);
 		this.titleLabel.setFont(font.deriveFont(25f));
 		this.dataTable.setFont(font.deriveFont(13f));
 		this.currentDataLabel.setFont(font);
-		
-		//new String[]{"Earth", "Mars", "Jupiter", "Neptune", "Uranus"}
 	}
 	
 	private void setupPanel(){
@@ -92,6 +103,24 @@ public class GridPanel extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, currentDataLabel, 0, SpringLayout.WEST, dataTableScrollPane);
 		
 		springLayout.putConstraint(SpringLayout.VERTICAL_CENTER, editCellField, 0, SpringLayout.VERTICAL_CENTER, currentDataLabel);
+		springLayout.putConstraint(SpringLayout.EAST, editCellField, 0, SpringLayout.EAST, dataTableScrollPane);
+		springLayout.putConstraint(SpringLayout.WEST, editCellField, 10, SpringLayout.EAST, currentDataLabel);
+		
+		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, clearButton, 0, SpringLayout.HORIZONTAL_CENTER, dataTableScrollPane);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, insertButton, 20, SpringLayout.SOUTH, editCellField);
+		springLayout.putConstraint(SpringLayout.EAST, insertButton, 0, SpringLayout.WEST, clearButton);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, deleteButton, 20, SpringLayout.SOUTH, editCellField);
+		springLayout.putConstraint(SpringLayout.WEST, deleteButton, 0, SpringLayout.EAST, clearButton);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, clearButton, 20, SpringLayout.SOUTH, insertButton);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, quitButton, 20, SpringLayout.SOUTH, clearButton);
+		springLayout.putConstraint(SpringLayout.EAST, quitButton, 0, SpringLayout.WEST, clearButton);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, dontPushButton, 20, SpringLayout.SOUTH, clearButton);
+		springLayout.putConstraint(SpringLayout.WEST, dontPushButton, 0, SpringLayout.EAST, clearButton);
 	}
 	
 	private void setupListeners(){
