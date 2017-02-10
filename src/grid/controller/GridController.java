@@ -27,13 +27,9 @@ public class GridController {
 	public void populatePlanetMoonArray(){
 		try{
 			BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/grid/assets/planetMoons.txt")));
-			
 			this.planetMoons = new PlanetMoon[5][10];
-			
 			for(int row = 0; row < 5; row++){
-				
 				String[] moonData = reader.readLine().split(",");
-				
 				for(int col = 0; col < moonData.length; col++){
 					planetMoons[row][col] = new PlanetMoon(moonData[col]);
 				}

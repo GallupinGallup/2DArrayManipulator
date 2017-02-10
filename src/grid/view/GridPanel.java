@@ -1,6 +1,8 @@
 package grid.view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -8,12 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import grid.controller.GridController;
 import grid.model.GridTableModel;
+import grid.model.PlanetMoon;
 
 public class GridPanel extends JPanel {
 	
@@ -52,29 +55,43 @@ public class GridPanel extends JPanel {
 		this.dontPushButton = new JButton("Do Not Push");
 		
 		this.populateTableModel();
-		
 		this.setupComponents();
 		this.setupPanel();
 		this.setupLayout();
 		this.setupListeners();
 	}
 	
-	private void populateTableModel(){
-		this.tableModel.setDataVector(gridController.getGrid(), new String[]{"Earth", "Mars", "Jupiter", "Neptune", "Uranus"});
+	private void populateTableModel(){ // This method inverts the row and column data and populates the jTableModel
+		PlanetMoon[][] planetMoons = gridController.getGrid();
+		
+		this.tableModel.setRowCount(planetMoons[0].length);
+		this.tableModel.setColumnCount(planetMoons.length);
+		this.tableModel.setColumnIdentifiers(new String[]{"Earth", "Mars", "Jupiter", "Neptune", "Uranus"});
+		
+		for(int row = 0; row < planetMoons.length; row++){
+			for(int col = 0; col < planetMoons[0].length; col++){
+				PlanetMoon planetMoon = planetMoons[row][col];
+				this.tableModel.setValueAt(planetMoon, col, row);
+			}
+		}
 	}
 	
 	private void setupComponents(){
-		this.dataTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		this.dataTable.setRowSelectionAllowed(false);
 		this.dataTable.setColumnSelectionAllowed(false);
 		this.dataTable.setCellSelectionEnabled(true);
 		
 		
-		Font font = new Font("Verdana", Font.PLAIN, 17);
+		Font font = new Font("Verdana", Font.PLAIN, 14);
 		this.titleLabel.setFont(font.deriveFont(25f));
 		this.dataTable.setFont(font.deriveFont(13f));
 		this.currentDataLabel.setFont(font);
+		this.editCellField.setFont(font);
+		this.insertButton.setFont(font);
+		this.deleteButton.setFont(font);
+		this.clearButton.setFont(font);
+		this.quitButton.setFont(font);
+		this.dontPushButton.setFont(font);
 	}
 	
 	private void setupPanel(){
@@ -124,7 +141,56 @@ public class GridPanel extends JPanel {
 	}
 	
 	private void setupListeners(){
-		
+		this.insertButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = editCellField.getText();
+				if(text != null && !text.equals("") && dataTable.getSelectedRow() > 0 && dataTable.getSelectedColumn() > 0){
+					editCellField.setText("");
+					dataTable.getModel().setValueAt(text, dataTable.getSelectedRow(), dataTable.getSelectedColumn());
+				}
+			}
+		});
+		this.deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(dataTable.getSelectedRow() > 0 && dataTable.getSelectedColumn() > 0){
+					dataTable.getModel().setValueAt(null, dataTable.getSelectedRow(), dataTable.getSelectedColumn());
+				}
+			}
+		});
+		this.clearButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TableModel tableModel = dataTable.getModel();
+				for(int row = 0; row < tableModel.getRowCount(); row++){
+					for(int col = 0; col < tableModel.getColumnCount(); col++){
+						tableModel.setValueAt(null, row, col);
+					}
+				}
+			}
+		});
+		this.quitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		this.dontPushButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TableModel tableModel = dataTable.getModel();
+				for(int row = 0; row < tableModel.getRowCount(); row++){
+					for(int col = 0; col < tableModel.getColumnCount(); col++){
+						String randomness = "";
+						for(int rand = 0; rand < (int)(Math.random() * 15); rand++){
+							randomness += (char)((int)(Math.random() * 255));
+						}
+						tableModel.setValueAt(randomness, row, col);
+					}
+				}
+			}
+		});
 	}
 	
 	
