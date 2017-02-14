@@ -28,10 +28,14 @@ public class GridController {
 		try{
 			BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/grid/assets/planetMoons.txt")));
 			this.planetMoons = new PlanetMoon[5][10];
-			for(int row = 0; row < 5; row++){
+			for(int row = 0; row < this.planetMoons.length; row++){
 				String[] moonData = reader.readLine().split(",");
-				for(int col = 0; col < moonData.length; col++){
-					planetMoons[row][col] = new PlanetMoon(moonData[col]);
+				for(int col = 0; col < planetMoons[0].length; col++){
+					if(moonData.length - 1 < col){
+						planetMoons[row][col] = new PlanetMoon("");
+					}else{
+						planetMoons[row][col] = new PlanetMoon(moonData[col]);
+					}
 				}
 			}
 		}catch(Exception e){

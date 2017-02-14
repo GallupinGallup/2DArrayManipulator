@@ -71,7 +71,7 @@ public class GridPanel extends JPanel {
 		for(int row = 0; row < planetMoons.length; row++){
 			for(int col = 0; col < planetMoons[0].length; col++){
 				PlanetMoon planetMoon = planetMoons[row][col];
-				this.tableModel.setValueAt(planetMoon, col, row);
+				this.tableModel.setValueAt(planetMoon.getMoonName(), col, row);
 			}
 		}
 	}

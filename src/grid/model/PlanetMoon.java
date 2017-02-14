@@ -10,7 +10,7 @@ public class PlanetMoon {
 	
 	@Override
 	public String toString() {
-		return moonName;
+		return "The moon name is: " + moonName;
 	}
 	
 	public String getMoonName() {
