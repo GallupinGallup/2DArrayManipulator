@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>360</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>PlanetMoon
+--
+- planetMoon : String
+--
++ toString() : void
++ setPlanetMoon() : void
++ getPlanetMoonName() : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
